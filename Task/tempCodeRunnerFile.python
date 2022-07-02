@@ -1,0 +1,4 @@
+print('Hellow world')
+#//2
+user = input('Your name: ')
+print(Hello, {user})
