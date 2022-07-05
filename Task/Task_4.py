@@ -1,9 +1,7 @@
-from copy import copy, deepcopy
+from copy import deepcopy
 import os
 import datetime
 import re
-from time import time
-import random
 import time
 
 
