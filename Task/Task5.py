@@ -1,45 +1,32 @@
-g = True
-while g == True:
+while True:
     result = 0
     a = input('Что делаем?(+, -, *, /):')
+    try:
+        b = float(input('Введите первое число:'))
+        c = float(input('Введите второе число:'))
+    except ValueError: print('Вы ввели не цифру')
     if a == '+':
-        try:
-            b = float(input('Первое слагаемое:'))
-            c = float(input('Второе слагаемое:'))
-            result = b + c
-            print (result)
-        except ValueError: print('Вы ввели не цифру')
-        
+        result = b + c
+        print (result)
     elif a == '-':
-        try:
-            b = float(input('Уменьшаемое:'))
-            c = float(input('Вычитаемое:'))
-            result = b - c
-            print (result)
-        except ValueError: print('Вы ввели не цифру')
+        result = b - c
+        print (result)
     elif a == '*':
-        try:
-            b = float(input('Первый множитель'))
-            c = float(input('Второй множитель'))
-            result = b * c
-            print (result)
-        except ValueError: print('Вы ввели не цифру')
+        result = b * c
+        print (result)
     elif a == '/':
         try:
-            b = float(input('Делимое:'))
-            c = float(input('Делитель'))
             result = b / c
             print (result)
-        except ZeroDivisionError: print('Невозможно выполнить деление на 0')
-        except ValueError: print('Вы ввели не цифру')
+        except ZeroDivisionError: print('Невозможно выполнить деление на 0')    
     else :
         print('Вы ввели не правильное действие')
-
+ # закрыть или продолжить        
     print('Если хотите продолжить введите Y, если хотите закончить работу введите N')
     d = str(input()) 
-    if d == str('Y'):
-        g = True
-    elif d == str('N'):
+    if d == 'Y':
+        continue
+    elif d == 'N':
         print('программа завершена')
         break
     else :
