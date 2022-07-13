@@ -1,22 +1,21 @@
 from math import sqrt
 import time
+from tkinter.messagebox import NO
 from types import ModuleType
-
-
+from openpyxl import Workbook
 
 # Task 1
-def do_operation(path, method, content):
-    f = open(path, method)
-    f.write(content)
-    print(content)
-    f.close
-do_operation('E:\Course\Task/1111.txt','w', 'Доброго вечора ми з України')
+def write_text_to_file(path, method, content):
+    with open(path, method) as text:
+        text.write(content)
+        print(content)
+write_text_to_file('E:\Course\Task/text.txt','w', 'Доброго вечора ми з України')
 
 
 
 #Task 2
 def season(month):
-    if month == 12 or month <= 2:
+    if 12 == month <= 2:
         print('Зима')
     elif month <= 5:
         print('Весна')
@@ -56,10 +55,21 @@ bank(years, amount)
 
 
 # Task 5
-def outer():
-    start_time = time.time()
-    def inner():
-        nonlocal start_time
-        print("--- %s seconds ---" % (time.time() - start_time))
-    return inner
-outer()()
+
+def decorator(func):
+    def wrapper_decorator(*args, **kwargs):
+        start_time = time.time()
+        value = func(*args, **kwargs)
+        end_time = time.time() - start_time
+        print(f"Функция выполнена за {end_time:4f}сек")
+        return value
+    return wrapper_decorator
+
+
+@decorator
+def some_func(num):
+    while num < 4:
+        num += 1
+        print("1 sec left")
+        time.sleep(1)
+some_func(2)
