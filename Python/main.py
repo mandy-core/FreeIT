@@ -1,30 +1,24 @@
 import requests
 from datetime import datetime, timedelta
 
-#/////////// Генератор списков
+#Запрос к именам
 url_name = 'https://api.exchangerate.host/symbols'
 response_name = requests.get(url_name)
-#Домбираемся в словаре до нозваний валют
 data_name = response_name.json()
 X_name = data_name.get('symbols')
+#Запрос к изменениям и дата
+Date = datetime.now().date()
+Thirty_days = Date - timedelta(days=30)
+url = f'https://api.exchangerate.host/fluctuation?start_date={Date}&end_date={Thirty_days}&base=EUR'
+response = requests.get(url)
+data = response.json()
+X = data.get("rates")
 
 # Словарь со название валют
 list_name = {}
 for key, val in X_name.items():
     X_dis = X_name.get(key)
     list_name[key] = X_dis.get('description')
-
-
-#/////////// Инфа за 30 дней
-#Вычисление 30 дней
-Date = datetime.now().date()
-Thirty_days = Date - timedelta(days=30)
-url = f'https://api.exchangerate.host/fluctuation?start_date={Date}&end_date={Thirty_days}&base=EUR'
-
-#Получаем список валют и их курс
-response = requests.get(url)
-data = response.json()
-X = data.get("rates")
 
 # Словарь с инф о валютах
 list_cr = {}
