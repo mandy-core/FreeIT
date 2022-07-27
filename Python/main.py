@@ -1,9 +1,10 @@
 import requests
 from datetime import datetime, timedelta
 
-##### Генератор списков
+#/////////// Генератор списков
 url_name = 'https://api.exchangerate.host/symbols'
 response_name = requests.get(url_name)
+#Домбираемся в словаре до нозваний валют
 data_name = response_name.json()
 X_name = data_name.get('symbols')
 
@@ -14,14 +15,15 @@ for key, val in X_name.items():
     list_name[key] = X_dis.get('description')
 
 
-###### Инфа за 30 дней
+#/////////// Инфа за 30 дней
+#Вычисление 30 дней
 Date = datetime.now().date()
 Thirty_days = Date - timedelta(days=30)
 url = f'https://api.exchangerate.host/fluctuation?start_date={Date}&end_date={Thirty_days}&base=EUR'
+
+#Получаем список валют и их курс
 response = requests.get(url)
 data = response.json()
-
-
 X = data.get("rates")
 
 # Словарь с инф о валютах
@@ -29,7 +31,6 @@ list_cr = {}
 for key, val in X.items():
     X_cr = X.get(key)
     list_cr[key] = X.get(key)
-
 
 # Запись Названия валют в текстовый файл Валюта - курс
 with open('rate.txt', 'w') as out:
@@ -41,4 +42,4 @@ with open('rate.txt', 'w') as out:
 with open('alert.log', 'w') as out:
     for key, val in list_cr.items():
         X_key = X.get(key)
-        out.write('Name: {} Change: {} Start_rate: {} End_rate: {}\n'.format(key, X_key.get('change'), X_key.get('start_rate'), X_key.get('end_rate')))
+        out.write('Name: {}    Change: {}    Start_rate: {}    End_rate: {}\n'.format(key, X_key.get('change'), X_key.get('start_rate'), X_key.get('end_rate')))
