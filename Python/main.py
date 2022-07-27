@@ -35,10 +35,10 @@ for key, val in X.items():
 with open('rate.txt', 'w') as out:
     for key, val in list_cr.items():
         X_key = X.get(key)
-        out.write('{} - {}\n'.format(key, X_key.get('end_rate')))
+        out.write('{} - {}\n'.format(key, X_key.get('start_rate')))
 
 # Запись Названия важных событий в лог
 with open('alert.log', 'w') as out:
     for key, val in list_cr.items():
         X_key = X.get(key)
-        out.write('Name: {} Change:{} Start_rate: {}\n'.format(key, X_key.get('change'), X_key.get('start_rate')))
+        out.write('Name: {} Change: {} Start_rate: {} End_rate: {}\n'.format(key, X_key.get('change'), X_key.get('start_rate'), X_key.get('end_rate')))
